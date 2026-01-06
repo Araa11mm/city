@@ -7,7 +7,7 @@ export default defineConfig(({ mode }) => {
 
   return {
     // ✅ ВАЖНО ДЛЯ GITHUB PAGES
-    base: '/REPO_NAME/',
+    base: '/city/',
 
     server: {
       port: 3000,
