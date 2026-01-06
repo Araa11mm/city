@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ГОРОД КРИЧИТ</title>
 
+    <!-- ВАЖНО для GitHub Pages: сайт лежит в /city/ -->
+    <base href="/city/" />
+
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
@@ -25,33 +28,44 @@
         75% { transform: translate(-1.5px, -1.5px); }
         100% { transform: translate(0,0); }
       }
-
       .animate-jitter { animation: jitter 0.08s infinite; }
 
       @keyframes pulse-fast {
         0%, 100% { opacity: 1; transform: scale(1); }
         50% { opacity: 0.4; transform: scale(0.95); }
       }
-
       .animate-pulse-fast { animation: pulse-fast 0.3s infinite; }
 
       .noise-overlay {
         pointer-events: none;
         position: fixed;
-        top: 0; left: 0; width: 100%; height: 100%;
+        inset: 0;
         opacity: 0.07;
         z-index: 100;
         background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      }
+
+      /* фон-картинка (чтобы не мешала кликам) */
+      .bg-city {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.18;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      #root {
+        position: relative;
+        z-index: 1;
       }
 
       ::-webkit-scrollbar { width: 4px; }
       ::-webkit-scrollbar-track { background: #0E0E11; }
       ::-webkit-scrollbar-thumb { background: #FF2A2A; }
     </style>
-
-    <!-- УБРАЛ, потому что файла index.css у тебя нет (он и даёт 404)
-    <link rel="stylesheet" href="./index.css">
-    -->
 
     <script type="importmap">
       {
@@ -63,11 +77,17 @@
       }
     </script>
 
-    <!-- Главное: относительный путь -->
-    <script type="module" crossorigin src="./assets/index-CIsmt5Ds.js"></script>
+    <!-- ВАЖНО: относительный путь к сборке -->
+    <script type="module" crossorigin src="assets/index-CIsmt5Ds.js"></script>
   </head>
 
   <body>
+    <!-- ВОТ ОНО: картинка из assets (первый вариант в HTML) -->
+    <img class="bg-city" src="assets/city-6HIAkT7e.png" alt="Городской фон" />
+
+    <div class="noise-overlay"></div>
+
     <div id="root"></div>
   </body>
 </html>
+
